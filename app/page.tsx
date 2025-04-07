@@ -1,6 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { drizzle } from 'drizzle-orm/d1';
 import { talks } from '@/src/db/schema';
+import { getCloudflareContext } from "@opennextjs/cloudflare";
 
 const iconMap = {
   Users: '👥',
@@ -15,8 +16,7 @@ export const dynamic = 'force-dynamic'
 
 export default async function MeetupSchedule() {
   // Get D1 database from environment
-  const env = process.env as unknown as { DB: D1Database };
-  const db = drizzle(env.DB);
+  const db = drizzle(getCloudflareContext().env.DB);
   
   // Fetch talks from database
   const talksList = await db.select().from(talks).orderBy(talks.time);
