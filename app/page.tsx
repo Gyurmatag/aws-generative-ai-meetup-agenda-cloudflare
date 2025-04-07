@@ -1,40 +1,25 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Clock, Users, Lightbulb, Shield, Cloud, Gift } from "lucide-react"
+import { drizzle } from 'drizzle-orm/d1';
+import { talks } from '@/src/db/schema';
 
-export default function MeetupSchedule() {
-  const talks = [
-    {
-      time: "17:00 - 17:30",
-      title: "Kapunyitás",
-      speaker: "",
-      icon: <Users className="h-5 w-5 text-gray-500" />,
-    },
-    {
-      time: "17:30 - 18:00",
-      title: "Keynote: Mastering Prompt Engineering for Smarter Interactions",
-      speaker: "Kacper Dąbrowski, AWS",
-      icon: <Lightbulb className="h-5 w-5 text-amber-500" />,
-    },
-    {
-      time: "18:00 - 18:40",
-      title: "GenAI security",
-      speaker: "Czirok László, TC2",
-      icon: <Shield className="h-5 w-5 text-emerald-500" />,
-    },
-    {
-      time: "18:40 - 19:10",
-      title: "AWS Amplify vs Vercel vs Cloudflare Pages / Workers",
-      speaker: "Varga György, Shiwaforce",
-      icon: <Cloud className="h-5 w-5 text-sky-500" />,
-      current: true,
-    },
-    {
-      time: "19:10",
-      title: "Generative AI kvíz, nyereményekkel",
-      speaker: "",
-      icon: <Gift className="h-5 w-5 text-purple-500" />,
-    },
-  ]
+const iconMap = {
+  Users: '👥',
+  Lightbulb: '💡',
+  Shield: '🛡️',
+  Cloud: '☁️',
+  Gift: '🎁',
+} as const;
+
+// This ensures the page is dynamically rendered
+export const dynamic = 'force-dynamic'
+
+export default async function MeetupSchedule() {
+  // Get D1 database from environment
+  const env = process.env as unknown as { DB: D1Database };
+  const db = drizzle(env.DB);
+  
+  // Fetch talks from database
+  const talksList = await db.select().from(talks).orderBy(talks.time);
 
   return (
     <div className="container mx-auto py-10 px-4">
@@ -50,7 +35,7 @@ export default function MeetupSchedule() {
                 <tr className="bg-slate-100">
                   <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">
                     <div className="flex items-center space-x-2">
-                      <Clock className="h-4 w-4" />
+                      <span>⏰</span>
                       <span>Time</span>
                     </div>
                   </th>
@@ -60,9 +45,9 @@ export default function MeetupSchedule() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-200">
-                {talks.map((talk, index) => (
+                {talksList.map((talk, index) => (
                   <tr
-                    key={index}
+                    key={talk.id}
                     className={`transition-colors ${
                       talk.current
                         ? "bg-sky-50 border-l-4 border-sky-500"
@@ -74,7 +59,7 @@ export default function MeetupSchedule() {
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-slate-900">{talk.time}</td>
                     <td className="px-6 py-4">
                       <div className="flex items-start space-x-3">
-                        <div className="flex-shrink-0 mt-1">{talk.icon}</div>
+                        <div className="flex-shrink-0 mt-1">{iconMap[talk.iconName as keyof typeof iconMap]}</div>
                         <div>
                           <div className="text-sm font-medium text-slate-900 flex items-center">
                             {talk.title}

@@ -9,7 +9,8 @@
 		"lint": "next lint",
 		"deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
 		"preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
-		"cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts"
+		"cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts",
+		"setup-db": "wrangler dev scripts/setup-db.ts"
 	},
 	"dependencies": {
 		"class-variance-authority": "^0.7.1",
@@ -29,9 +30,11 @@
 		"@types/node": "^20",
 		"@types/react": "^19",
 		"@types/react-dom": "^19",
+		"drizzle-kit": "^0.20.14",
 		"eslint": "^9",
 		"eslint-config-next": "15.2.4",
 		"tailwindcss": "^4",
+		"tsx": "^4.7.1",
 		"typescript": "^5",
 		"wrangler": "^4.7.2"
 	}
