@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "AWS Generative AI Meetup Agenda Cloudflare",
+  title: "Agenda - Cloudflare",
   description: "AWS Generative AI Meetup Agenda Cloduflare app",
 };
 
