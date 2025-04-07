@@ -1,8 +1,28 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AWS Generative AI Meetup Agenda - Cloudflare Edition
+
+This is a [Next.js](https://nextjs.org) project that manages the agenda for AWS Generative AI Meetups, deployed on Cloudflare's edge network. The project uses modern web technologies and is optimized for performance and scalability.
+
+## Tech Stack
+
+- [Next.js 15](https://nextjs.org) - React framework with App Router
+- [React 19](https://react.dev) - UI library
+- [Tailwind CSS](https://tailwindcss.com) - Utility-first CSS framework
+- [Cloudflare Workers](https://workers.cloudflare.com) - Edge computing platform
+- [OpenNext](https://open-next.js.org) - Cloudflare-optimized Next.js deployment
 
 ## Getting Started
 
-First, run the development server:
+First, install the dependencies:
+
+```bash
+npm install
+# or
+yarn install
+# or
+pnpm install
+```
+
+Then, run the development server:
 
 ```bash
 npm run dev
@@ -10,27 +30,50 @@ npm run dev
 yarn dev
 # or
 pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Development
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- The project uses TypeScript for type safety
+- ESLint is configured for code quality
+- TailwindCSS is set up with PostCSS for styling
+- Cloudflare environment types are available via `cloudflare-env.d.ts`
 
-## Learn More
+## Deployment
 
-To learn more about Next.js, take a look at the following resources:
+This project is configured to deploy to Cloudflare using OpenNext. To deploy:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+npm run deploy
+# or
+yarn deploy
+# or
+pnpm deploy
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+To preview the production build locally:
 
-## Deploy on Vercel
+```bash
+npm run preview
+# or
+yarn preview
+# or
+pnpm preview
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Environment Variables
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Create a `.dev.vars` file in the root directory for local development with Cloudflare Workers:
+
+```env
+# Required environment variables
+# Add your environment variables here
+```
+
+## Additional Resources
+
+- [Next.js Documentation](https://nextjs.org/docs)
+- [Cloudflare Workers Documentation](https://developers.cloudflare.com/workers/)
+- [OpenNext Documentation](https://open-next.js.org/)
